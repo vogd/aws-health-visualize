@@ -8,9 +8,34 @@ Dataset generated to describe data structure
 Dashboard deployed from temporary dashboard template shared in test aws acount
 
 Prerequisistes:
-- Setup QuickSight Account as per blog instruction
+- **Deploy Automation from CF template **https://aws-org-health-dashboard-2021.s3.ap-southeast-2.amazonaws.com/aws-health-cfn-stack.yaml
 
-- Allow Quicksight to access S3 bucket created by CF template from blog
+![image](https://user-images.githubusercontent.com/7371990/140425531-c1a0c134-9b78-4bf3-8d98-788ced3c0026.png)
+
+![image](https://user-images.githubusercontent.com/7371990/140425592-101a2c0b-7607-4a1c-a3a6-9a5eeef26c75.png)
+
+![image](https://user-images.githubusercontent.com/7371990/140425782-e81a8365-2339-4d13-b74f-4b5a02e4f995.png)
+
+- **Proceed to next window with default settings. Mark following at the end.**
+![image](https://user-images.githubusercontent.com/7371990/140425890-cee1e74f-fd93-48c4-97a4-299346341518.png)
+
+![image](https://user-images.githubusercontent.com/7371990/140425932-81c3beb7-6d29-4d76-9b12-c012cc1795dc.png)
+
+- **Waitfor main stack to complete.**
+![image](https://user-images.githubusercontent.com/7371990/140426257-2434f38f-c390-499a-af32-2500aaa32c24.png)
+
+
+- **Setup QuickSight Account as per blog instruction**
+
+- **Allow Quicksight to access S3 bucket created by CF template from blog**
+![image](https://user-images.githubusercontent.com/7371990/140425251-e4443c85-f292-4ed0-8ae1-cb3b7066362c.png)
+
+- **Check S3**
+![image](https://user-images.githubusercontent.com/7371990/140425307-956a22e3-8d6c-434b-b592-1a7808ce1b51.png)
+
+- **Select Bucket created by automation**
+![image](https://user-images.githubusercontent.com/7371990/140425439-8d51678a-621b-4865-a86e-89868aa0654a.png)
+
 
 Steps to complete:
 1) Launch script 
