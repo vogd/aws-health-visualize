@@ -1,0 +1,44 @@
+{
+  "AwsAccountId": "AccountVariable",
+  "DashboardId": "df691782-869e-4a9d-a170-5bbfa1537f23-V3",
+  "Name": "phdvisualize-V3",
+  "SourceEntity": {
+    "SourceTemplate": {
+      "Arn": "arn:aws:quicksight:us-west-2:995149706792:template/healthvisualization_analysis-V2",
+      "DataSetReferences": [
+        {
+          "DataSetPlaceholder": "DS1",
+          "DataSetArn": "arn:aws:quicksight:QSRegion:AccountVariable:dataset/ce041082-79a5-4788-b2a1-95b8fde26a5d-V3"
+        }
+      ]
+    }
+  },
+  "Permissions": [
+    {
+      "Principal": "arn:aws:quicksight:QSRegion:AccountVariable:namespace/default",
+      "Actions": [
+        "quicksight:DescribeDashboard",
+        "quicksight:ListDashboardVersions",
+        "quicksight:QueryDashboard"
+      ]
+    },
+    {
+      "Principal": "arn:aws:quicksight:QSRegion:AccountVariable:user/default/QSUser",
+      "Actions": [
+        "quicksight:DescribeDashboard",
+        "quicksight:ListDashboardVersions",
+        "quicksight:UpdateDashboardPermissions",
+        "quicksight:QueryDashboard",
+        "quicksight:UpdateDashboard",
+        "quicksight:DeleteDashboard",
+        "quicksight:DescribeDashboardPermissions",
+        "quicksight:UpdateDashboardPublishedVersion"
+      ]
+    }
+  ],
+  "DashboardPublishOptions": {
+    "AdHocFilteringOption": {
+      "AvailabilityStatus": "DISABLED"
+    }
+  }
+}
