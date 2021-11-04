@@ -38,11 +38,33 @@ Prerequisistes:
 
 
 Steps to complete:
-1) Launch script 
+1) Clone repo
+git clone git@github.com:vogd/aws-health-visualize.git
+Cloning into 'aws-health-visualize'...
+remote: Enumerating objects: 24, done.
+remote: Counting objects: 100% (24/24), done.
+remote: Compressing objects: 100% (21/21), done.
+remote: Total 24 (delta 6), reused 11 (delta 2), pack-reused 0
+Receiving objects: 100% (24/24), 21.04 KiB | 694.00 KiB/s, done.
+Resolving deltas: 100% (6/6), done.
+
+2) Ensure S3 Bucket exist and or you are logged under correct account in your awscli
+aws s3 ls
+2021-10-18 16:31:52 cloudtrail-awslogs-453297385969-aaa6hupv-do-not-delete
+2021-10-19 06:21:27 do-not-delete-audit-453297385969
+2021-11-04 14:57:01 yourname-for-healthvisualization
+
+3) Launch script 
+./deployhealthvisuals.sh
+
 can override account and bucket templates using -a and -b parameters
-2) Script will query aws cli env for aws account and get S3 bucket value from described stacksets.
-3) If stack from blog article was not deployed previously - you can override the bucket name via -b option
-4) Steps to complete once dashboard deployed to allow locat dashboard modification:
+Originally automation will be looking for a bucket from Stack parameter **S3BucketNameforHealthData**
+![image](https://user-images.githubusercontent.com/7371990/140426846-3c5e269a-03b0-4093-b939-1788c0e200e5.png)
+
+
+4) Script will query aws cli env for aws account and get S3 bucket value from described stacksets.
+5) If stack from blog article was not deployed previously - you can override the bucket name via -b option
+6) Steps to complete once dashboard deployed to allow locat dashboard modification:
 
 How to save a dashboard as an analysis?
 
