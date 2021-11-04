@@ -9,7 +9,6 @@ Dashboard deployed from temporary dashboard template shared in test aws acount
 
 Prerequisistes:
 - **Deploy Automation from CF template **https://aws-org-health-dashboard-2021.s3.ap-southeast-2.amazonaws.com/aws-health-cfn-stack.yaml
-
 ![image](https://user-images.githubusercontent.com/7371990/140425531-c1a0c134-9b78-4bf3-8d98-788ced3c0026.png)
 
 ![image](https://user-images.githubusercontent.com/7371990/140425592-101a2c0b-7607-4a1c-a3a6-9a5eeef26c75.png)
@@ -26,9 +25,14 @@ Prerequisistes:
 
 
 - **Setup QuickSight Account as per blog instruction**
+!!!!!Account should be setup in the same region where health visualization stack is deployed !!!!!
 
 - **Allow Quicksight to access S3 bucket created by CF template from blog**
 ![image](https://user-images.githubusercontent.com/7371990/140425251-e4443c85-f292-4ed0-8ae1-cb3b7066362c.png)
+Hit Save
+![image](https://user-images.githubusercontent.com/7371990/140428132-39e85e67-a701-4078-a61f-ba8aae66c0ec.png)
+S3 will appear in the list of allowed for IAM role
+![image](https://user-images.githubusercontent.com/7371990/140428209-f0204d3c-9962-4781-a30f-985540aed500.png)
 
 - **Check S3**
 ![image](https://user-images.githubusercontent.com/7371990/140425307-956a22e3-8d6c-434b-b592-1a7808ce1b51.png)
@@ -57,7 +61,33 @@ aws s3 ls
 3) Launch script 
 ./deployhealthvisuals.sh
 
-can override account and bucket templates using -a and -b parameters
+If following error returned :
+No accountid -a xxxx and bucketname -b yyyy  parameters set. Taking from environment
+
+Reason:
+Default region configured to us-east-1 nothing would be returned:
+aws --profile learning3 cloudformation describe-stacks --query Stacks[].Parameters[*] --output text | grep "S3BucketNameforHealthData"
+
+ENSURE default aws cli profile configured with the same region where stack were created.
+Command to check profile:
+bash-3.2$ cat ~/.aws/config
+[default]
+region = us-west-2
+output = json
+
+......
+
+[profile learning3]
+region = us-east-1
+credential_process = xxxxx:yyyyyyy/user
+
+$ aws --profile learning3 cloudformation describe-stacks --query Stacks[].Parameters[*] --region us-west-2 --output text | grep "S3BucketNameforHealthData"
+S3BucketNameforHealthData	yourname-for-healthvisualization
+
+Solution:
+Change profile default region in .aws/config to execute the script in correct region.
+Or
+Can override account and bucket templates using -a and -b parameters
 Originally automation will be looking for a bucket from Stack parameter **S3BucketNameforHealthData**
 ![image](https://user-images.githubusercontent.com/7371990/140426846-3c5e269a-03b0-4093-b939-1788c0e200e5.png)
 
