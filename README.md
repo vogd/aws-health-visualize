@@ -7,6 +7,11 @@ https://aws.amazon.com/blogs/mt/use-aws-lambda-and-amazon-quicksight-to-build-a-
 Dataset generated to describe data structure
 Dashboard deployed from temporary dashboard template shared in test aws acount
 
+Prerequisistes:
+- Setup QuickSight Account as per blog instruction
+
+- Allow Quicksight to access S3 bucket created by CF template from blog
+
 Steps to complete:
 1) Launch script 
 can override account and bucket templates using -a and -b parameters
@@ -30,21 +35,33 @@ Once completed, you can then customize the Analysis filters, visuals etc.
 
 
 -Open Dashboard
+
 ![image](https://user-images.githubusercontent.com/7371990/140420492-ae674248-3515-4b62-8734-40fd15f3dae7.png)
+
 -Select option "Share Dashboard" under top right pane Share
+
 ![image](https://user-images.githubusercontent.com/7371990/140420618-e63b454d-3ff0-47fc-8fa2-4d5ba095e59a.png)
+
 -Select "Manage dashboard access"
+
 ![image](https://user-images.githubusercontent.com/7371990/140420668-571d7be0-db50-47ec-a970-7f1b73f67127.png)
+
 -Allow "Save As" option
+
 ![image](https://user-images.githubusercontent.com/7371990/140420736-ee08a9ef-8b7c-4505-ae7d-5eed37ff2911.png)
 ![image](https://user-images.githubusercontent.com/7371990/140420781-15370b55-f9c7-446b-9eef-9640d0075311.png)
 
-- Following option should appear 
- ![image](https://user-images.githubusercontent.com/7371990/140420816-3c71c0fa-2a7b-408a-b645-b85995c0ad45.png)
-- Refresh dashboard tab in browser
+-Following option should appear
+
+![image](https://user-images.githubusercontent.com/7371990/140420816-3c71c0fa-2a7b-408a-b645-b85995c0ad45.png)
+
+-Refresh dashboard tab in browser
+
 ![image](https://user-images.githubusercontent.com/7371990/140420936-88e48a8f-8d41-4d80-a2d9-ceb82d51d60d.png)
-- If not helped Close Quicksight window and reopen it in a new tab. 
-Open dashboard again.Save As option should appear for the dashboard
+
+-If not helped Close Quicksight window and reopen it in a new tab. 
+Open dashboard again.Save As option should appear for the dashboard.
+
 ![image](https://user-images.githubusercontent.com/7371990/140421830-37cbd268-2119-49eb-940a-c11f7d038b10.png)
 
 You are ready to make your changes !
