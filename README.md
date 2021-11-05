@@ -27,6 +27,15 @@ Prerequisistes:
 - **Setup QuickSight Account as per blog instruction**
 !!!!!Account should be setup in the same region where health visualization stack is deployed !!!!!
 
+![image](https://user-images.githubusercontent.com/7371990/140527491-663f0db7-7b8d-46cd-b677-f34bd878921c.png)
+
+Once changed region accept warning and change region again.
+Name quickSight account and provide notification email.
+![image](https://user-images.githubusercontent.com/7371990/140528105-2a2c2b0e-ee43-445a-9666-ca619dc0106a.png)
+
+Optionally select S3 bucket you want to have access to. Or do it later.
+
+
 - **Allow Quicksight to access S3 bucket created by CF template from blog**
 ![image](https://user-images.githubusercontent.com/7371990/140425251-e4443c85-f292-4ed0-8ae1-cb3b7066362c.png)
 Hit Save
