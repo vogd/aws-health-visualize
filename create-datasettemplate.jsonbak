@@ -1,11 +1,11 @@
 {
-  "AwsAccountId": "AccountVariable",
+  "AwsAccountId": "107869205163",
   "DataSetId": "ce041082-79a5-4788-b2a1-95b8fde26a5d-V3",
   "Name": "healthvisualizefroms3-V3",
   "PhysicalTableMap": {
     "89cdd271-a7a7-427b-a9cc-daf0f84f6cc1": {
       "S3Source": {
-        "DataSourceArn": "arn:aws:quicksight:QSRegion:AccountVariable:datasource/7916cf11-3461-4cf8-9961-3f3fb5a47a2d-V3",
+        "DataSourceArn": "arn:aws:quicksight:us-west-2:107869205163:datasource/7916cf11-3461-4cf8-9961-3f3fb5a47a2d-V3",
         "UploadSettings": {
           "Format": "CSV",
           "StartFromRow": 1,
@@ -179,7 +179,7 @@
   "ImportMode": "SPICE",
   "Permissions": [
     {
-      "Principal": "arn:aws:quicksight:QSRegion:AccountVariable:user/default/QSUser",
+      "Principal": "arn:aws:quicksight:us-west-2:107869205163:user/default/QSUser",
       "Actions": [
         "quicksight:UpdateDataSetPermissions",
         "quicksight:DescribeDataSet",
