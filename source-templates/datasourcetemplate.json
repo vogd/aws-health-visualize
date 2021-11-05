@@ -1,5 +1,5 @@
 {
-   	"AwsAccountId": "107869205163",
+   	"AwsAccountId": "AccountVariable",
         "DataSourceId": "7916cf11-3461-4cf8-9961-3f3fb5a47a2d-V3",
         "Name": "healthvisualizefroms3-DataSource-V3",
         "Type": "S3",
