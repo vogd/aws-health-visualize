@@ -9,13 +9,20 @@ dashboardID="df691782-869e-4a9d-a170-5bbfa1537f23-V3"
 definevarFunction()
 {
    echo ""
-
    AccountVariable=$(echo $(aws sts get-caller-identity)|awk -F ',' '{print$2}'| grep  -o -E '[0-9]+');
    BucketVariable=$(echo $(aws cloudformation describe-stacks --query Stacks[].Parameters[*] --output text | grep "S3BucketNameforHealthData"| awk -F " " '{print$2}'))
     if [ "$BucketVariable" = "" ]; then
-       # $var is empty
-       echo "Bucket name can not be found. Please specify the bucket via command line, or check the health visualization stack is deployed in correct region"
-       exit 1
+       # Bucket name is empty it either not exist or created in a different region then awscli default for current profile.
+       #------------call bucket search on all regions
+       for region in `aws ec2 describe-regions --region us-east-1 --output text | cut -f4`
+         do
+          echo -e "\nListing buckets in different regions:'$region'..."
+             BucketVariable=$(echo $(aws cloudformation describe-stacks --query Stacks[].Parameters[*] --region $region --output text | grep "S3BucketNameforHealthData"| awk -F " " '{print$2}'))
+         done
+       if [ "$BucketVariable" = "" ]; then
+          echo "Bucket name can not be found. Please specify the bucket via command line, or check the health visualization stack is deployed in correct region"
+          exit 1
+       fi   
     fi
    echo " "
    echo " " 
@@ -53,7 +60,7 @@ fi
 
 
 # ----------------Get current QuickSight account region and namespace
-   AWSRegion=$(aws configure get region)
+   #AWSRegion=$(aws configure get region)
 #---QuickSight account can be created in different region than default aws environment region
    QSnamespace=$(echo $(aws quicksight describe-account-settings --aws-account-id $AccountVariable|grep -i namespace|awk -F ":" '{print$2}'|awk -F '"' '{print$2}'))
    echo "Default Quicksight namespace is " $QSnamespace
@@ -132,40 +139,31 @@ deploydashboard()
 }
 
 
-#-----------------Check if QuickSight region matches current AWSCLI profile region otherwise cant access QuickSight resources from cli
-if [[$AWSregion==$QSRegion]]
-then  
-   # ----------------Confirm source templates exist before execution
-   templates=(./source-templates/datasourcetemplate.json ./source-templates/datasettemplate.json ./source-templates/dashboard-template.json)
-   for SOURCEFILE in ${templates[@]}
-   do
-     if [[ ! -f $SOURCEFILE ]]
-     then
-       echo "The file ${SOURCEFILE} does not exist!"
-       exit 1 # Exit script after failure to find sources
-     else
-   
-       #---------------Apply template modifications
-       filename=$(echo ${SOURCEFILE}|awk -F "/" '{print$NF}') 
-       preparetemplate "${SOURCEFILE}" "./create-$filename" "$AccountVariable" "$BucketVariable" "$QSRegion" "$QSUser"
-   
-       #---------------Call deployment stack referring template vars
-          if [[ $filename == *"datasourcetemplate"* ]]
-          then
-             deploydatasource "./create-$filename" "$AccountVariable" "$QSRegion" $datasourceID
-          elif [[ $filename == *"datasettemplate"* ]]  
-          then  
-             deploydataset "./create-$filename" "$AccountVariable" "$QSRegion" $datasetID
-          else 
-             deploydashboard "./create-$filename" "$AccountVariable" "$QSRegion" $dashboardID 
-          fi            
-     fi
+# ----------------Confirm source templates exist before execution
+templates=(./source-templates/datasourcetemplate.json ./source-templates/datasettemplate.json ./source-templates/dashboard-template.json)
+for SOURCEFILE in ${templates[@]}
+do
+  if [[ ! -f $SOURCEFILE ]]
+  then
+    echo "The file ${SOURCEFILE} does not exist!"
+    exit 1 # Exit script after failure to find sources
   else
-  echo "Operation is being called from different endpoint then your QuickSight identity region."
-  echo "Unable to get current QuickSight account region and namespace."
-  echo "Correct aws cli profile region settings matching QukcSight Account region."
-  exit 1
-  fi    
+
+    #---------------Apply template modifications
+    filename=$(echo ${SOURCEFILE}|awk -F "/" '{print$NF}') 
+    preparetemplate "${SOURCEFILE}" "./create-$filename" "$AccountVariable" "$BucketVariable" "$QSRegion" "$QSUser"
+
+    #---------------Call deployment stack referring template vars
+       if [[ $filename == *"datasourcetemplate"* ]]
+       then
+          deploydatasource "./create-$filename" "$AccountVariable" "$QSRegion" $datasourceID
+       elif [[ $filename == *"datasettemplate"* ]]  
+       then  
+          deploydataset "./create-$filename" "$AccountVariable" "$QSRegion" $datasetID
+       else 
+          deploydashboard "./create-$filename" "$AccountVariable" "$QSRegion" $dashboardID 
+       fi            
+  fi   
 done
 
 
