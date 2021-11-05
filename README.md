@@ -11,22 +11,35 @@ Prerequisistes:
 
 **ENSURE default aws cli profile configured with the same region where stack were created.**
 Command to check profile:
+
 bash-3.2$ cat ~/.aws/config
+
 [default]
+
 region = us-west-2
+
 output = json
+
 
 ......
 
+
 [profile learning3]
+
 region = us-east-1
+
 credential_process = xxxxx:yyyyyyy/user
+
 
 **Solution:**
 Change profile default region in .aws/config to execute the script in correct region.
+
 Or
+
 Can override account and bucket templates using -a and -b parameters
+
 Originally automation will be looking for a bucket from Stack parameter **S3BucketNameforHealthData**
+
 ![image](https://user-images.githubusercontent.com/7371990/140426846-3c5e269a-03b0-4093-b939-1788c0e200e5.png)
 
 
@@ -82,23 +95,39 @@ S3 will appear in the list of allowed for IAM role
 **DEPLOY DASHBOARD VIA AUTOMATION**
 
 1) Clone repo
+
 git clone git@github.com:vogd/aws-health-visualize.git
+
 Cloning into 'aws-health-visualize'...
+
 remote: Enumerating objects: 24, done.
+
 remote: Counting objects: 100% (24/24), done.
+
 remote: Compressing objects: 100% (21/21), done.
+
 remote: Total 24 (delta 6), reused 11 (delta 2), pack-reused 0
+
 Receiving objects: 100% (24/24), 21.04 KiB | 694.00 KiB/s, done.
+
 Resolving deltas: 100% (6/6), done.
 
+
 2) Ensure S3 Bucket exist and or you are logged under correct account in your awscli
+
 aws s3 ls
+
 2021-10-18 16:31:52 cloudtrail-awslogs-453297385969-aaa6hupv-do-not-delete
+
 2021-10-19 06:21:27 do-not-delete-audit-453297385969
+
 2021-11-04 14:57:01 yourname-for-healthvisualization
 
+
 3) Launch script 
+
 ./deployhealthvisuals.sh
+
 
 4) Script will query aws cli env for aws account and get S3 bucket value from described stacksets.
 
@@ -110,15 +139,25 @@ aws s3 ls
 **How to save a dashboard as an analysis?**
 
 Go to your Templated Dashboard.
+
 Click “Share”
+
 Click “Share dashboard”
+
 Click “Manage dashboard access”
+
 Check the Save as box for your user
+
 Confirm
+
 Close window
+
 You should now see a “Save as”
+
 Click "Save as"
+
 Name your Analysis
+
 Once completed, you can then customize the Analysis filters, visuals etc.
 
 
@@ -143,11 +182,9 @@ Following option should appear
 
 ![image](https://user-images.githubusercontent.com/7371990/140420816-3c71c0fa-2a7b-408a-b645-b85995c0ad45.png)
 
-Refresh dashboard tab in browser
 
-![image](https://user-images.githubusercontent.com/7371990/140420936-88e48a8f-8d41-4d80-a2d9-ceb82d51d60d.png)
 
-**If not helped Close Quicksight window and reopen it in a new tab.** 
+**Close Quicksight window and reopen it in a new tab.** 
 Open dashboard again.Save As option should appear for the dashboard.
 
 ![image](https://user-images.githubusercontent.com/7371990/140421830-37cbd268-2119-49eb-940a-c11f7d038b10.png)
